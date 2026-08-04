@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Shield Outline -->
+  <path d="M50,12 L85,22 L85,55 C85,75 70,88 50,93 C30,88 15,75 15,55 L15,22 Z" fill="#0c0c0c" stroke="#f97316" stroke-width="5" stroke-linejoin="round" />
+  <!-- Inner circular power ring -->
+  <circle cx="50" cy="53" r="28" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="5 3" opacity="0.8" />
+  <!-- Lightning Bolt / Power symbol -->
+  <path d="M52,25 L32,55 L48,55 L45,80 L68,48 L50,48 Z" fill="#f97316" />
+</svg>

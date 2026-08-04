@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Popup, Polyline } from 'react-leaflet';
 import { 
-  Activity, AlertTriangle, Shield, CheckCircle2, Clock, 
+  Activity, AlertTriangle, CheckCircle2, Clock, 
   Terminal, Settings, Zap, RefreshCw, Wrench
 } from 'lucide-react';
 
@@ -263,9 +263,13 @@ export default function App() {
       {/* Header bar */}
       <header className="flex h-14 items-center justify-between border-b border-[#242424] px-6 bg-[#0a0a0a]">
         <div className="flex items-center space-x-3">
-          <Shield className="h-6 w-6 text-[#c6c6c7] animate-pulse" />
-          <span className="text-lg font-bold tracking-tighter uppercase">GRIDGUARD // INTRUSION & FAULT LOCALIZER</span>
-          <span className="bg-red-950 text-red-400 border border-red-800 text-[10px] px-2 py-0.5 uppercase tracking-widest font-bold">
+          <img src="/logo.svg" className="h-7 w-7 object-contain animate-pulse" alt="GridGuard Logo" />
+          <div className="flex items-center space-x-1.5 font-bold tracking-tighter text-base uppercase">
+            <span className="text-white">GridGuard</span>
+            <span className="text-zinc-600">|</span>
+            <span className="text-orange-500">Propel</span>
+          </div>
+          <span className="bg-orange-950 text-orange-400 border border-orange-800 text-[9px] px-2 py-0.5 uppercase tracking-widest font-bold rounded">
             Live Ops Console
           </span>
         </div>
