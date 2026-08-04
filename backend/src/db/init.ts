@@ -53,7 +53,8 @@ const schemaSQL = `
     battery_mv INT NOT NULL,
     rssi INT NOT NULL,
     fw VARCHAR(20) NOT NULL,
-    processed_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    processed_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    CONSTRAINT unique_telemetry UNIQUE (device_id, ts, seq)
   );
 
   CREATE TABLE IF NOT EXISTS tickets (
