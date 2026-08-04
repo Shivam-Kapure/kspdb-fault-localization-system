@@ -5,8 +5,7 @@ import {
   Terminal, Settings, Zap, RefreshCw, Wrench
 } from 'lucide-react';
 
-// API Base URL
-const API_URL = 'http://localhost:3000/api';
+const API_URL = (import.meta as any).env?.VITE_API_URL ? `${(import.meta as any).env.VITE_API_URL}/api` : 'http://localhost:3000/api';
 
 interface Substation { id: string; name: string; lat: number; lon: number; pincode: string; }
 interface Feeder { id: string; substation_id: string; capacity_mw: number; }
