@@ -338,9 +338,40 @@ async function processDtFaults(dtId: string) {
     });
   }
 
-  // Clean up resolved tickets:
-  // If a ticket is active (status = 'detected' or 'acknowledged'), but the telemetry is now fully live:
-  // We can let the auto-verification workflow (Phase 7) close them.
+  // 5. Auto-Verification & Closure Workflow (Phase 7)
+  const openTicketsRes = await pool.query(
+    `SELECT * FROM tickets 
+     WHERE (target_id = $1 OR target_id IN (SELECT id FROM poles WHERE dt_id = $1)) 
+       AND status NOT IN ('resolved', 'closed', 'verified')`,
+    [dtId]
+  );
+
+  for (const tkt of openTicketsRes.rows) {
+    let shouldResolve = false;
+
+    if (tkt.type === 'dt') {
+      // If all reporting devices on the DT are live now
+      if (totalDark === 0 && totalLive > 0) {
+        shouldResolve = true;
+      }
+    } else if (tkt.type === 'span' && tkt.span_end_pole_id) {
+      // Check subtree of the end pole
+      const endPoleStats = subtreeStats.get(tkt.span_end_pole_id);
+      if (endPoleStats && endPoleStats.darkCount === 0 && endPoleStats.liveCount > 0) {
+        shouldResolve = true;
+      }
+    }
+
+    if (shouldResolve) {
+      await pool.query(
+        `UPDATE tickets 
+         SET status = 'resolved', updated_at = NOW(), rationale = CONCAT(rationale, E'\n\n[Auto-Verification]: Downstream telemetry fully restored. Outage resolved automatically.')
+         WHERE id = $1`,
+        [tkt.id]
+      );
+      console.log(`Auto-Verification: Ticket ${tkt.id} has been automatically resolved based on active telemetry.`);
+    }
+  }
 }
 
 interface TicketData {
