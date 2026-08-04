@@ -92,7 +92,7 @@ async function runLoadTest() {
         })
         .catch((err: any) => {
           failureCount += BATCH_SIZE;
-          console.error(`[Batch ${b + 1}] Request failed:`, err.message);
+          console.error(`[Batch ${b + 1}] Request failed:`, err);
         })
     );
   }
