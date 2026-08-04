@@ -1,6 +1,5 @@
 import http from 'http';
 
-const TARGET_URL = 'http://localhost:3000/api/telemetry';
 const TOTAL_MESSAGES = 1000;
 const BATCH_SIZE = 500;
 
@@ -45,7 +44,7 @@ function sendRequest(payload: any): Promise<{ statusCode: number; duration: numb
           'Content-Length': Buffer.byteLength(data),
         },
       },
-      (res) => {
+      (res: http.IncomingMessage) => {
         res.resume(); // consume response
         res.on('end', () => {
           resolve({
@@ -56,7 +55,7 @@ function sendRequest(payload: any): Promise<{ statusCode: number; duration: numb
       }
     );
 
-    req.on('error', (err) => {
+    req.on('error', (err: Error) => {
       reject(err);
     });
 
@@ -82,7 +81,7 @@ async function runLoadTest() {
     const batch = generateBatch(BATCH_SIZE);
     promises.push(
       sendRequest(batch)
-        .then((res) => {
+        .then((res: { statusCode: number; duration: number }) => {
           if (res.statusCode === 202) {
             successCount += BATCH_SIZE;
           } else {
@@ -91,7 +90,7 @@ async function runLoadTest() {
           latencies.push(res.duration);
           console.log(`[Batch ${b + 1}] Sent ${BATCH_SIZE} msgs -> Status: ${res.statusCode} (${res.duration}ms)`);
         })
-        .catch((err) => {
+        .catch((err: any) => {
           failureCount += BATCH_SIZE;
           console.error(`[Batch ${b + 1}] Request failed:`, err.message);
         })

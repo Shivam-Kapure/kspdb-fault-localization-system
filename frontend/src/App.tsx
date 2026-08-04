@@ -629,7 +629,7 @@ export default function App() {
                       <label className="block text-zinc-400 text-[10px] uppercase">Type</label>
                       <select
                         value={outageType}
-                        onChange={(e) => setOutageType(e.value as any)}
+                        onChange={(e) => setOutageType(e.target.value as any)}
                         className="w-full bg-[#050505] border border-zinc-800 text-white p-2 text-xs"
                       >
                         <option value="dt">Transformer</option>
