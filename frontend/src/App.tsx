@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Popup, Polyline } from 'react-leaflet';
 import { 
   Activity, AlertTriangle, Shield, CheckCircle2, Clock, 
-  Terminal, Settings, Zap, MapPin, RefreshCw, XCircle, Wrench
+  Terminal, Settings, Zap, RefreshCw, Wrench
 } from 'lucide-react';
 
 // API Base URL
@@ -44,7 +44,6 @@ export default function App() {
   // Scheduled Outage Form State
   const [outageType, setOutageType] = useState<'feeder' | 'dt' | 'pole'>('dt');
   const [outageTargetId, setOutageTargetId] = useState('');
-  const [outageStartHours, setOutageStartHours] = useState('0');
   const [outageEndHours, setOutageEndHours] = useState('2');
 
   // Load static assets once
@@ -211,16 +210,35 @@ export default function App() {
     }
   };
 
+  // Optimized lookups: Map of pole by ID and Set of dark device IDs
+  const polesMap = React.useMemo(() => {
+    const map = new Map<string, Pole>();
+    for (const p of poles) {
+      map.set(p.id, p);
+    }
+    return map;
+  }, [poles]);
+
+  const darkDevicesSet = React.useMemo(() => {
+    const darkSet = new Set<string>();
+    const seenDevices = new Set<string>();
+    for (const log of telemetry) {
+      if (!seenDevices.has(log.device_id)) {
+        seenDevices.add(log.device_id);
+        if (log.event === 'power_lost') {
+          darkSet.add(log.device_id);
+        }
+      }
+    }
+    return darkSet;
+  }, [telemetry]);
+
   // Helper: check if a pole is physically dark in the current UI state
   // (Meaning its latest telemetry event is power_lost)
   const isPoleDark = (poleId: string) => {
-    const pole = poles.find(p => p.id === poleId);
+    const pole = polesMap.get(poleId);
     if (!pole || !pole.device_id) return false;
-    
-    // Check active faults that affect it physically
-    // (Or we can check latest telemetry, which is live!)
-    const latest = telemetry.find(t => t.device_id === pole.device_id);
-    return latest ? latest.event === 'power_lost' : false;
+    return darkDevicesSet.has(pole.device_id);
   };
 
   // Center coordinate calculation
@@ -261,6 +279,10 @@ export default function App() {
           <div className="flex items-center space-x-2">
             <span className="opacity-50">Active Simulator Faults:</span>
             <span className="font-bold text-orange-400">{activeFaults.length}</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span className="opacity-50">Scheduled Outages:</span>
+            <span className="font-bold text-blue-400">{scheduledOutages.length}</span>
           </div>
           <div className="flex items-center space-x-2">
             <span className="opacity-50">Heartbeat Rate:</span>
@@ -312,6 +334,7 @@ export default function App() {
             zoom={14} 
             className="h-full w-full"
             style={{ background: '#050505' }}
+            preferCanvas={true}
           >
             <TileLayer
               url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
@@ -321,7 +344,7 @@ export default function App() {
             {/* Render Spans / Feeders */}
             {poles.map(pole => {
               if (pole.parent_pole_id) {
-                const parent = poles.find(p => p.id === pole.parent_pole_id);
+                const parent = polesMap.get(pole.parent_pole_id);
                 if (parent) {
                   const isFault = isPoleDark(pole.id) && isPoleDark(parent.id);
                   return (
