@@ -25,7 +25,7 @@ The system **auto-seeds on startup** with a realistic grid layout containing **4
 
 ## 🚀 Live Demo & Video Walkthrough
 
-- **Public Live Application:** [https://gridguard-production.up.railway.app](https://gridguard-production.up.railway.app) (Placeholder - Replace with your deployment URL)
+- **Public Live Application:** [https://gridlock-delta.vercel.app](https://gridlock-delta.vercel.app)
 - **5-Minute Technical Demo Video:** [https://youtu.be/example-walkthrough](https://youtu.be/example-walkthrough) (Placeholder - Replace with your recording)
 
 ---
