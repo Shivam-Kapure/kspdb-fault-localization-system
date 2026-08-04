@@ -72,6 +72,22 @@ const schemaSQL = `
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE NOT NULL
   );
+
+  CREATE TABLE IF NOT EXISTS active_faults (
+    id SERIAL PRIMARY KEY,
+    type VARCHAR(20) NOT NULL, -- 'span', 'dt', 'feeder'
+    target_id VARCHAR(50) NOT NULL, -- pole_id, dt_id, or feeder_id
+    span_end_pole_id VARCHAR(50), -- only for span faults
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  );
+
+  CREATE TABLE IF NOT EXISTS scheduled_outages (
+    id SERIAL PRIMARY KEY,
+    type VARCHAR(20) NOT NULL, -- 'dt', 'feeder', 'pole'
+    target_id VARCHAR(50) NOT NULL,
+    start_time TIMESTAMP WITH TIME ZONE NOT NULL,
+    end_time TIMESTAMP WITH TIME ZONE NOT NULL
+  );
 `;
 
 export async function initDb() {

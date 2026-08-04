@@ -3,6 +3,8 @@ import cors from 'cors';
 import { initDb } from './db/init';
 import { initDeviceCache } from './services/telemetryProcessor';
 import telemetryRouter from './routes/telemetry';
+import simulatorRouter from './routes/simulator';
+import { startSimulationLoop } from './services/simulatorService';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,11 +17,13 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/telemetry', telemetryRouter);
+app.use('/api/simulator', simulatorRouter);
 
 async function main() {
   try {
     await initDb();
     await initDeviceCache();
+    await startSimulationLoop();
     app.listen(port, () => {
       console.log(`Grid Guard Backend running on port ${port}`);
     });
