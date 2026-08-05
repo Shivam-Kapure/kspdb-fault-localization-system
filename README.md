@@ -26,7 +26,7 @@ The system **auto-seeds on startup** with a realistic grid layout containing **4
 ## 🚀 Live Demo & Video Walkthrough
 
 - **Public Live Application:** [https://gridlock-delta.vercel.app](https://gridlock-delta.vercel.app)
-- **5-Minute Technical Demo Video:** [https://youtu.be/example-walkthrough](https://youtu.be/example-walkthrough) (Placeholder - Replace with your recording)
+- **5-Minute Technical Demo Video:** [https://drive.google.com/file/d/1IIFA-nA-lmzdb4DjP1asNX_z1nrNRTKu/view?usp=sharing](https://drive.google.com/file/d/1IIFA-nA-lmzdb4DjP1asNX_z1nrNRTKu/view?usp=sharing)
 
 ---
 

@@ -8,7 +8,7 @@ This file summarizes the submission assets, verification checklist, and the offi
 
 *   **Public GitHub Repository:** [https://github.com/Shivam-Kapure/kspdb-fault-localization-system](https://github.com/Shivam-Kapure/kspdb-fault-localization-system)
 *   **Live Public Application:** [https://gridlock-delta.vercel.app](https://gridlock-delta.vercel.app)
-*   **Demo Video Walkthrough:** [https://youtu.be/example-walkthrough](https://youtu.be/example-walkthrough) *(Replace with your recorded Loom link)*
+*   **Demo Video Walkthrough:** [https://drive.google.com/file/d/1IIFA-nA-lmzdb4DjP1asNX_z1nrNRTKu/view?usp=sharing](https://drive.google.com/file/d/1IIFA-nA-lmzdb4DjP1asNX_z1nrNRTKu/view?usp=sharing) 
 
 ---
 
@@ -44,7 +44,7 @@ Here is my submission for the AI Product Engineer assignment:
 
 1. **GitHub Repository:** https://github.com/Shivam-Kapure/kspdb-fault-localization-system
 2. **Live URL:** https://gridlock-delta.vercel.app
-3. **Demo Video Walkthrough:** [PASTE YOUR RECORDED VIDEO URL HERE]
+3. **Demo Video Walkthrough:** https://drive.google.com/file/d/1IIFA-nA-lmzdb4DjP1asNX_z1nrNRTKu/view?usp=sharing
 
 ### 📝 Executive Summary (280 Words)
 
