@@ -30,10 +30,7 @@ Before submission, we verified the entire platform against all pass/fail accepta
 
 ---
 
-## 📧 Email Submission Draft (Copy & Paste)
-
-Copy the text below and reply to the hiring contact email.
-
+## Email Submission Draft
 ***
 
 **Subject:** Submission: GridGuard Fault Localization Console - Shivam Kapure
@@ -46,7 +43,7 @@ Here is my submission for the AI Product Engineer assignment:
 2. **Live URL:** https://gridlock-delta.vercel.app
 3. **Demo Video Walkthrough:** https://drive.google.com/file/d/1IIFA-nA-lmzdb4DjP1asNX_z1nrNRTKu/view?usp=sharing
 
-### 📝 Executive Summary (280 Words)
+### Executive Summary
 
 **What works:**
 *   **High-Throughput Telemetry Ingestion:** Engineered an Express ingestion queue with in-memory cache buffering to write telemetry logs in bulk every 100ms. Successfully tested up to **4,200+ msg/second** with low latency.
